@@ -24,7 +24,6 @@
     exports.Enum = function (obj) {
         var that = this;
         if (arguments.length === 1 && obj !== null && typeof obj === "object") {
-            console.log("@@@ " + Object.keys(obj));
             Object.keys(obj).forEach(function (name) {
                 that[name] = new exports.Symbol(name, obj[name]);
             });
@@ -47,14 +46,3 @@
         );
     }
 }(typeof exports === "undefined" ? this.enum = {} : exports));
-
-/*
-var color = new enum.Enum("red", "green", "blue");
-switch(color.green) {
-    case color.green:
-        console.log("It is green!");
-        break;
-    default:
-        console.log("Other color.");
-}
-*/
