@@ -39,16 +39,17 @@
         }
         Object.freeze(this);
     }
-    exports.Enum.prototype.keys = function() {
-        return Object.keys(this);
-    }
-    exports.Enum.prototype.values = function() {
+    exports.Enum.prototype.symbols = function() {
         var that = this;
         return Object.keys(this).map(
             function(key) {
                 return that[key];
             }
         );
+    }
+    exports.Enum.prototype.contains = function(sym) {
+        if (! sym instanceof exports.Symbol) return false;
+        return this[sym.name] === sym;
     }
 }(typeof exports === "undefined" ? this.enum = {} : exports));
 // Explanation of this pattern: http://www.2ality.com/2011/08/universal-modules.html

@@ -12,5 +12,11 @@ describe("Enum", function() {
         }
         expect(translate(color.green)).toEqual("grün");
     });
+    it("can check for symbol membership", function() {
+        var color = new enum.Enum("red", "green", "blue");
+        var fruit = new enum.Enum("apple", "banana");
+        expect(color.contains(color.red)).toBeTruthy();
+        expect(color.contains(fruit.apple)).toBeFalsy();
+    });
 });
 
