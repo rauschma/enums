@@ -1,3 +1,20 @@
 A simple enum implementation for JavaScript
+===========================================
 
-Details: www.2ality.com/2011/10/enums.html
+Usage example
+-------------
+
+    var color = new enums.Enum("red", "green", "blue");
+    function isGreen(c) {
+        return c === color.green;
+    }
+    
+Details: http://www.2ality.com/2011/10/enums.html
+
+
+Running the unit tests
+----------------------
+
+    $ jasmine-node enums.spec.js
+    
+Details: http://www.2ality.com/2011/10/jasmine.html
