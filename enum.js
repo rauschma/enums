@@ -1,5 +1,5 @@
 (function (exports) {
-    function copyOwnTo(source, target) {
+    function copyOwnFrom(target, source) {
         Object.getOwnPropertyNames(source).forEach(function(propName) {
             Object.defineProperty(target, propName,
                 Object.getOwnPropertyDescriptor(source, propName));
@@ -7,49 +7,49 @@
         return target;
     }
     
-    exports.Symbol = function (name, props) {
+    function Symbol(name, props) {
         this.name = name;
         if (props) {
-            copyOwnTo(props, this);
+            copyOwnFrom(this, props);
         }
         Object.freeze(this);
     }
     /** We don’t want the mutable Object.prototype in the prototype chain */
-    exports.Symbol.prototype = Object.create(null);
-    exports.Symbol.prototype.constructor = exports.Symbol;
+    Symbol.prototype = Object.create(null);
+    Symbol.prototype.constructor = Symbol;
     /**
      * Without Object.prototype in the prototype chain, we need toString()
      * in order to display symbols.
      */
-    exports.Symbol.prototype.toString = function () {
+    Symbol.prototype.toString = function () {
         return "|"+this.name+"|";
     };
-    Object.freeze(exports.Symbol.prototype);
+    Object.freeze(Symbol.prototype);
 
-    exports.Enum = function (obj) {
-        var that = this;
+    Enum = function (obj) {
         if (arguments.length === 1 && obj !== null && typeof obj === "object") {
             Object.keys(obj).forEach(function (name) {
-                that[name] = new exports.Symbol(name, obj[name]);
-            });
+                this[name] = new Symbol(name, obj[name]);
+            }, this);
         } else {
             Array.prototype.forEach.call(arguments, function (name) {
-                that[name] = new exports.Symbol(name);
-            });
+                this[name] = new Symbol(name);
+            }, this);
         }
         Object.freeze(this);
     }
-    exports.Enum.prototype.symbols = function() {
-        var that = this;
+    Enum.prototype.symbols = function() {
         return Object.keys(this).map(
             function(key) {
-                return that[key];
-            }
+                return this[key];
+            }, this
         );
     }
-    exports.Enum.prototype.contains = function(sym) {
-        if (! sym instanceof exports.Symbol) return false;
+    Enum.prototype.contains = function(sym) {
+        if (! sym instanceof Symbol) return false;
         return this[sym.name] === sym;
     }
-}(typeof exports === "undefined" ? this.enum = {} : exports));
+    exports.Enum = Enum;
+    exports.Symbol = Symbol;
+}(typeof exports === "undefined" ? this.enums = {} : exports));
 // Explanation of this pattern: http://www.2ality.com/2011/08/universal-modules.html
