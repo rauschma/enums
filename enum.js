@@ -14,8 +14,13 @@
         }
         Object.freeze(this);
     }
+    /** We don’t want the mutable Object.prototype in the prototype chain */
     exports.Symbol.prototype = Object.create(null);
     exports.Symbol.prototype.constructor = exports.Symbol;
+    /**
+     * Without Object.prototype in the prototype chain, we need toString()
+     * in order to display symbols.
+     */
     exports.Symbol.prototype.toString = function () {
         return "|"+this.name+"|";
     };
@@ -46,3 +51,4 @@
         );
     }
 }(typeof exports === "undefined" ? this.enum = {} : exports));
+// Explanation of this pattern: http://www.2ality.com/2011/08/universal-modules.html
