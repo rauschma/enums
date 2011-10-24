@@ -18,3 +18,10 @@ Running the unit tests
     $ jasmine-node enums.spec.js
     
 Details: http://www.2ality.com/2011/10/jasmine.html
+
+
+Acknowledgements
+----------------
+
+- Main idea by Allen Wirfs-Brock
+- Suggested improvements by Andrea Gianmarchi
