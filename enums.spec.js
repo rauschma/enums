@@ -1,4 +1,4 @@
-var enums = require("./enum.js");
+var enums = require("./enums.js");
 
 describe("Enum", function() {
     it("can have symbols with custom properties", function() {
