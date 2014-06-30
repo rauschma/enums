@@ -6,7 +6,7 @@
         });
         return target;
     }
-    
+
     function Symbol(name, props) {
         this.name = name;
         if (props) {
@@ -46,7 +46,7 @@
         );
     }
     Enum.prototype.contains = function(sym) {
-        if (! sym instanceof Symbol) return false;
+        if (!(sym instanceof Symbol)) return false;
         return this[sym.name] === sym;
     }
     exports.Enum = Enum;

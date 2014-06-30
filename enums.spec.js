@@ -17,6 +17,7 @@ describe("Enum", function() {
         var fruit = new enums.Enum("apple", "banana");
         expect(color.contains(color.red)).toBeTruthy();
         expect(color.contains(fruit.apple)).toBeFalsy();
+        expect(color.contains(undefined)).toBeFalsy();
     });
 });
 
