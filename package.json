@@ -1,0 +1,12 @@
+{
+  "name": "enums",
+  "version": "0.0.1",
+  "description": "Enums for JavaScript",
+  "main": "enums.js",
+  "devDependencies": {
+    "jasmine": "^2.0.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine"
+  }
+}
