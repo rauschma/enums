@@ -54,6 +54,26 @@
         return this[name];
     };
 
+    /**
+     * Get the enum based on a matching value
+     * @param valueMatcher an object literal with any subset of the properties passed into the original constructor
+     * @returns an array of matching enums or, if only one matches the enum or, if none match, undefined
+     */
+    Enum.prototype.fromValue = function (valueMatcher) {
+        if (!valueMatcher) return undefined;
+        var matches = this.symbols().filter(function(symbol) {
+            for (var key in valueMatcher) { return valueMatcher[key] === symbol[key]; };
+        })
+        switch (matches.length) {
+            case 0:
+                return undefined;
+            case 1:
+                return matches[0];
+            default:
+                return matches;
+        }
+    };
+
     exports.Enum = Enum;
     exports.Symbol = Symbol;
 }(typeof exports === "undefined" ? this.enums = {} : exports));
