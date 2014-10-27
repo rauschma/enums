@@ -26,7 +26,7 @@
     };
     Object.freeze(Symbol.prototype);
 
-    Enum = function (obj) {
+    var Enum = function (obj) {
         if (arguments.length === 1 && obj !== null && typeof obj === "object") {
             Object.keys(obj).forEach(function (name) {
                 this[name] = new Symbol(name, obj[name]);
@@ -37,18 +37,23 @@
             }, this);
         }
         Object.freeze(this);
-    }
+    };
     Enum.prototype.symbols = function() {
         return Object.keys(this).map(
             function(key) {
                 return this[key];
             }, this
         );
-    }
+    };
     Enum.prototype.contains = function(sym) {
-        if (! sym instanceof Symbol) return false;
+        if (!sym instanceof Symbol) return false;
         return this[sym.name] === sym;
-    }
+    };
+    Enum.prototype.fromName = function (name) {
+        if (!name instanceof String) return undefined;
+        return this[name];
+    };
+
     exports.Enum = Enum;
     exports.Symbol = Symbol;
 }(typeof exports === "undefined" ? this.enums = {} : exports));
