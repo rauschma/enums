@@ -8,5 +8,9 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rauschma/enums.git"
   }
 }
