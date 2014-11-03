@@ -7,6 +7,24 @@ describe("Enum", function() {
         expect(color.red.name).toEqual("red");
     });
 
+    it("can iterate over its properties", function() {
+        var color = new enums.Enum({
+            red: { r: 255, g: 2, b: 0 },
+            green: { r: 0, g: 255, b: 0 },
+            blue: { r: 0, g: 0, b: 255 }
+        });
+        var red = color.red;
+        var rValue;
+        for (var property in red) {
+            if (red.hasOwnProperty(property) && property === "r") {
+                rValue = red[property];
+            }
+        }
+
+        expect(rValue).toBeDefined();
+        expect(rValue).toEqual(255);
+    });
+
     it("can have symbols with custom properties", function() {
         var color = new enums.Enum({
             red: { de: "rot" },

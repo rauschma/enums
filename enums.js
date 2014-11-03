@@ -12,10 +12,12 @@
         if (props) {
             copyOwnFrom(this, props);
         }
-        Object.freeze(this);
+        Object.seal(this);
     }
     /** We don’t want the mutable Object.prototype in the prototype chain */
-    Symbol.prototype = Object.create(null);
+    // BG adding Object.prototype back to allow iteration, otherwise objects with
+    // symbols attached cannot be deep copied
+    Symbol.prototype = Object.create(Object.prototype);
     Symbol.prototype.constructor = Symbol;
     /**
      * Without Object.prototype in the prototype chain, we need toString()
@@ -24,7 +26,7 @@
     Symbol.prototype.toString = function () {
         return "|"+this.name+"|";
     };
-    Object.freeze(Symbol.prototype);
+    Object.seal(Symbol.prototype);
 
     var Enum = function (obj) {
         if (arguments.length === 1 && obj !== null && typeof obj === "object") {
@@ -36,7 +38,7 @@
                 this[name] = new Symbol(name);
             }, this);
         }
-        Object.freeze(this);
+        Object.seal(this);
     };
     Enum.prototype.symbols = function() {
         return Object.keys(this).map(
